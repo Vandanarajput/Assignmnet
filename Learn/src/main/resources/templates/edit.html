@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            margin-left: 15px;
+            color: #555;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Edit Book</h2>
+    <form th:action="@{/books/edit/{id}(id=${book.id})}" th:object="${book}" method="post">
+        
+        <label for="title">Title</label>
+        <input type="text" id="title" th:field="*{title}" placeholder="Enter book title"/>
+        <div th:if="${#fields.hasErrors('title')}" class="error" th:errors="*{title}">Title Error</div>
+
+        <label for="author">Author</label>
+        <input type="text" id="author" th:field="*{author}" placeholder="Enter author name"/>
+        <div th:if="${#fields.hasErrors('author')}" class="error" th:errors="*{author}">Author Error</div>
+
+        <label for="isbn">ISBN</label>
+        <input type="text" id="isbn" th:field="*{isbn}" placeholder="Enter ISBN number"/>
+        <div th:if="${#fields.hasErrors('isbn')}" class="error" th:errors="*{isbn}">ISBN Error</div>
+
+        <label for="price">Price</label>
+        <input type="number" id="price" th:field="*{price}" placeholder="Enter price" step="0.01"/>
+        <div th:if="${#fields.hasErrors('price')}" class="error" th:errors="*{price}">Price Error</div>
+
+        <button type="submit">Update Book</button>
+        <a href="/books">Cancel</a>
+    </form>
+</body>
+</html>
